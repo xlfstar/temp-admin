@@ -51,10 +51,11 @@ instance.interceptors.response.use(
     // hideLoading();
 
     const { data } = response
+    console.log('---response', response)
 
     // 根据你的业务逻辑处理响应
     if (data.code === 200 || data.success) {
-      return data
+      return data.data
     } else {
       // 业务逻辑错误
       return Promise.reject(new Error(data.message || '请求失败'))

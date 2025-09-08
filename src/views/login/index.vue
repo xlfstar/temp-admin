@@ -34,217 +34,56 @@
             <p>请登录您的账户</p>
           </div>
 
-          <form
+          <el-form
             class="login-form"
-            @submit.prevent="handleLogin"
+            ref="loginFormRef"
+            :model="loginForm"
           >
-            <div class="form-group">
-              <label for="username">用户名</label>
-              <div class="input-wrapper">
-                <svg
-                  class="input-icon"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M20 21V19C20 17.9 19.1 17 18 17H6C4.9 17 4 17.9 4 19V21"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <circle
-                    cx="12"
-                    cy="7"
-                    r="4"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-                <input
-                  type="text"
-                  id="username"
-                  v-model="loginForm.username"
-                  placeholder="请输入用户名"
-                  required
-                />
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="password">密码</label>
-              <div class="input-wrapper">
-                <svg
-                  class="input-icon"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect
-                    x="3"
-                    y="11"
-                    width="18"
-                    height="11"
-                    rx="2"
-                    ry="2"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <path
-                    d="M7 11V7C7 5.67 7.67 4.33 9 4.33C10.33 4.33 12 5.67 12 7V11"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-                <input
-                  :type="showPassword ? 'text' : 'password'"
-                  id="password"
-                  v-model="loginForm.password"
-                  placeholder="请输入密码"
-                  required
-                />
-                <button
-                  type="button"
-                  class="password-toggle"
-                  @click="showPassword = !showPassword"
-                >
-                  <svg
-                    v-if="showPassword"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M17.94 17.94C16.2 19.57 13.09 21 12 21C7.03 21 1 16.5 1 12C1 10.9 3.18 8.43 6.06 6.06M9.9 4.24C10.59 4.09 11.3 4 12 4C16.97 4 23 8.5 23 12C23 13.78 21.22 15.47 18.94 16.74"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                    <circle
-                      cx="12"
-                      cy="12"
-                      r="3"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                    <path
-                      d="M1 1L23 23"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                  <svg
-                    v-else
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M1 12S5 4 12 4S23 12 23 12S19 20 12 20S1 12 1 12Z"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                    <circle
-                      cx="12"
-                      cy="12"
-                      r="3"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                </button>
-              </div>
-            </div>
-
-            <div class="form-options">
-              <label class="checkbox-wrapper">
-                <input
-                  type="checkbox"
-                  v-model="rememberMe"
-                />
-                <span class="checkmark"></span>
-                记住我
-              </label>
-              <a
-                href="#"
-                class="forgot-password"
-              >
-                忘记密码？
-              </a>
-            </div>
-
-            <button
-              type="submit"
-              class="login-btn"
-              :disabled="loading"
+            <el-form-item
+              prop="username"
+              label=""
+              size="large"
             >
-              <span
-                v-if="loading"
-                class="loading-spinner"
-              ></span>
-              {{ loading ? '登录中...' : '登录' }}
-            </button>
-          </form>
-
-          <div class="divider">
-            <span>或者</span>
-          </div>
-
-          <div class="social-login">
-            <button class="social-btn github">
-              <svg
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                xmlns="http://www.w3.org/2000/svg"
+              <el-input
+                type="text"
+                v-model="loginForm.username"
+                placeholder="请输入用户名"
+                clearable
+                size="large"
               >
-                <path
-                  d="M12 0.5C5.37 0.5 0 5.87 0 12.5C0 17.75 3.44 22.2 8.2 23.75C8.8 23.87 9 23.5 9 23.16V21.26C5.65 22.02 4.97 19.85 4.97 19.85C4.42 18.53 3.63 18.17 3.63 18.17C2.54 17.4 3.72 17.42 3.72 17.42C4.92 17.5 5.54 18.68 5.54 18.68C6.62 20.54 8.36 20 9.05 19.68C9.16 18.9 9.48 18.36 9.84 18.05C7.17 17.74 4.38 16.69 4.38 12.14C4.38 10.89 4.85 9.87 5.56 9.08C5.44 8.77 5.01 7.52 5.68 5.86C5.68 5.86 6.71 5.52 9 7.02C9.96 6.75 10.98 6.62 12 6.61C13.02 6.62 14.04 6.75 15 7.02C17.29 5.52 18.32 5.86 18.32 5.86C18.99 7.52 18.56 8.77 18.44 9.08C19.15 9.87 19.62 10.89 19.62 12.14C19.62 16.7 16.82 17.74 14.14 18.05C14.58 18.42 14.98 19.15 14.98 20.26V23.16C14.98 23.5 15.18 23.87 15.78 23.75C20.56 22.2 24 17.75 24 12.5C24 5.87 18.63 0.5 12 0.5Z"
-                />
-              </svg>
-              GitHub
-            </button>
-            <button class="social-btn google">
-              <svg
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                xmlns="http://www.w3.org/2000/svg"
+                <template #prefix>
+                  <icon-font name="icon-yonghu" />
+                </template>
+              </el-input>
+            </el-form-item>
+            <el-form-item
+              prop="password"
+              label=""
+            >
+              <el-input
+                type="password"
+                v-model="loginForm.password"
+                placeholder="请输入密码"
+                size="large"
+                show-password
               >
-                <path
-                  d="M22.56 12.25C22.56 11.47 22.49 10.72 22.36 10H12V14.26H17.92C17.66 15.63 16.84 16.81 15.62 17.56V20.33H19.18C21.38 18.25 22.56 15.53 22.56 12.25Z"
-                  fill="#4285F4"
-                />
-                <path
-                  d="M12 23C15.24 23 17.95 21.92 19.18 20.33L15.62 17.56C14.61 18.22 13.34 18.63 12 18.63C8.88 18.63 6.22 16.53 5.32 13.66H1.64V16.51C2.86 18.94 7.22 23 12 23Z"
-                  fill="#34A853"
-                />
-                <path
-                  d="M5.32 13.66C5.1 13 5.1 12.13 5.32 11.34V8.49H1.64C0.6 10.56 0.6 13.44 1.64 15.51L5.32 13.66Z"
-                  fill="#FBBC04"
-                />
-                <path
-                  d="M12 5.38C13.44 5.38 14.77 5.91 15.8 6.89L18.96 3.73C17.95 2.81 15.24 1 12 1C7.22 1 2.86 5.06 1.64 7.49L5.32 10.34C6.22 7.47 8.88 5.38 12 5.38Z"
-                  fill="#EA4335"
-                />
-              </svg>
-              Google
-            </button>
-          </div>
+                <template #prefix>
+                  <icon-font name="icon-lock" />
+                </template>
+              </el-input>
+            </el-form-item>
+            <el-form-item>
+              <el-button
+                type="primary"
+                class="w-full"
+                size="large"
+                @click="handleLogin"
+                :loading="loading"
+              >
+                登录
+              </el-button>
+            </el-form-item>
+          </el-form>
         </div>
       </div>
     </div>
@@ -252,24 +91,29 @@
 </template>
 
 <script setup lang="ts">
-  import { ref } from 'vue'
-
-  const loginForm = ref({
+  import { ref, reactive } from 'vue'
+  import { ElMessage, type FormInstance, type FormRules } from 'element-plus'
+  import { IconFont } from '@/components'
+  import { useRouter } from 'vue-router'
+  import useAuthStore from '@/stores/auth'
+  import type { UserLoginType } from '@/types/user'
+  const router = useRouter()
+  const authStore = useAuthStore()
+  const loginFormRef = ref<FormInstance | null>(null)
+  const loginForm = ref<UserLoginType>({
     username: '',
     password: ''
   })
 
-  const showPassword = ref(false)
-  const rememberMe = ref(false)
   const loading = ref(false)
 
   const handleLogin = async () => {
     loading.value = true
     try {
-      // 这里添加登录逻辑
-      console.log('登录信息:', loginForm.value)
-      // 模拟登录延迟
-      await new Promise((resolve) => setTimeout(resolve, 2000))
+      const res = await authStore.login(loginForm.value)
+      console.log({ res })
+      ElMessage.success('登录成功11')
+      router.push('/')
     } catch (error) {
       console.error('登录失败:', error)
     } finally {

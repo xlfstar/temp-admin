@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <Suspense>
+  <!-- <Suspense>
     <template #default>
       <router-view v-slot="{ Component, route }">
         <transition>
@@ -15,6 +15,7 @@
               />
             </template>
             <template v-else>
+              <div>111</div>
               <Layout>
                 <component :is="Component" />
               </Layout>
@@ -24,7 +25,8 @@
       </router-view>
     </template>
     <template #fallback>Loading...</template>
-  </Suspense>
+  </Suspense> -->
+  <RouterView />
 </template>
 
 <style scoped>

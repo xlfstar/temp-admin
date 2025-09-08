@@ -41,7 +41,7 @@
     </aside>
     <main class="page-main">
       <section class="page-content">
-        <slot />
+        <RouterView />
       </section>
 
       <!-- <footer class="page-footer">copyright &copy; 2021-2025</footer> -->
@@ -175,8 +175,8 @@
       padding: 15px;
       .page-content {
         flex: 1;
-        padding: 15px;
-        overflow-y: scroll;
+        // padding: 15px;
+        overflow-y: auto;
       }
       .page-footer {
         padding: 15px;
